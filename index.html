@@ -1,302 +1,153 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+```html
+<script>
+  const eventBox = document.getElementById("event");
+  const timerBox = document.getElementById("timer");
+  const title = document.getElementById("title");
+  const subtitle = document.getElementById("subtitle");
+  const footer = document.getElementById("footer");
 
-  <title>the waiting game</title>
+  let seconds = 0;
 
-  <link
-    rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⌛</text></svg>"
-  />
+  const events = [
+    "🫵😂 nothing happened",
+    "🫵😂 still waiting?",
+    "🫵😂 imagine thinking something would happen",
+    "🫵😂 bro is literally staring at text",
+    "🫵😂 this is your gameplay",
+    "🫵😂 huge waste of time detected",
+    "🫵😂 waiting simulator champion",
+    "🫵😂 you really sat here for this",
+    "🫵😂 absolutely NOTHING",
+    "🫵😂 wow another useless second",
+    "🫵😂 the game is doing this on purpose",
+    "🫵😂 you cant even win",
+    "🫵😂 your reward is more waiting",
+    "🫵😂 maybe refresh the page 400 times",
+    "🫵😂 still no content",
+    "🫵😂 your patience means nothing",
+    "🫵😂 the developer is laughing at you",
+    "🫵😂 this couldve been a youtube video",
+    "🫵😂 bro is farming disappointment",
+    "🫵😂 look at you waiting",
+    "🫵😂 you thought there was lore?",
+    "🫵😂 maybe in another hour",
+    "🫵😂 nope",
+    "🫵😂 literally a blank experience",
+    "🫵😂 the waiting continues forever",
+    "🫵😂 ur still here????",
+    "🫵😂 this game hates you",
+    "🫵😂 every second is embarrassing",
+    "🫵😂 you are being mocked in real time",
+    "🫵😂 still expecting gameplay?",
+    "🫵😂 professional waiter",
+    "🫵😂 this is actually sad",
+    "🫵😂 ur monitor deserves better",
+    "🫵😂 patience level: unemployed",
+    "🫵😂 no secret ending",
+    "🫵😂 no reward",
+    "🫵😂 no purpose",
+    "🫵😂 only waiting"
+  ];
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Consolas, monospace;
+  setInterval(() => {
+    seconds++;
+
+    timerBox.textContent =
+      `${seconds} seconds wasted permanently`;
+
+    if (seconds === 15) {
+      footer.textContent =
+        "🫵😂 bro stayed 15 seconds";
     }
 
-    body {
-      background: #050505;
-      color: #f5f5f5;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      transition: background 0.5s;
+    if (seconds === 30) {
+      eventBox.textContent =
+        "🫵😂 30 seconds gone forever";
+      document.body.style.background = "#120000";
     }
 
-    .container {
-      width: 90%;
-      max-width: 1000px;
-      text-align: center;
-      padding: 40px;
+    if (seconds === 45) {
+      title.style.transform = "rotate(-1deg)";
+      footer.textContent =
+        "🫵😂 this is your life now";
     }
 
-    h1 {
-      font-size: 6rem;
-      letter-spacing: 10px;
-      text-transform: lowercase;
-      margin-bottom: 10px;
+    if (seconds === 60) {
+      title.classList.add("tiny");
+
+      eventBox.textContent =
+        "🫵😂 the title shrunk from disappointment";
     }
 
-    .subtitle {
-      opacity: 0.4;
-      letter-spacing: 4px;
-      margin-bottom: 60px;
-      font-size: 0.9rem;
+    if (seconds === 90) {
+      subtitle.classList.add("invisible");
+
+      eventBox.textContent =
+        "🫵😂 subtitle removed due to uselessness";
     }
 
-    .event {
-      font-size: 2.2rem;
-      min-height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.2s;
-      padding: 20px;
+    if (seconds === 120) {
+      title.classList.remove("tiny");
+      title.classList.add("huge");
+
+      eventBox.textContent =
+        "🫵😂 TWO WHOLE MINUTES LMFAOOOO";
     }
 
-    .timer {
-      margin-top: 30px;
-      opacity: 0.5;
-      font-size: 1rem;
+    if (seconds === 180) {
+      document.body.style.filter =
+        "contrast(150%)";
+
+      eventBox.textContent =
+        "🫵😂 THREE MINUTES????????";
     }
+  }, 1000);
 
-    .footer {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      text-align: center;
-      opacity: 0.2;
-      font-size: 0.8rem;
-      letter-spacing: 3px;
-    }
+  function randomEvent() {
+    const text =
+      events[
+        Math.floor(Math.random() * events.length)
+      ];
 
-    .flash {
-      animation: flash 0.2s ease;
-    }
+    eventBox.classList.remove("flash");
 
-    .shake {
-      animation: shake 0.2s linear;
-    }
+    setTimeout(() => {
+      eventBox.textContent = text;
+      eventBox.classList.add("flash");
+    }, 50);
 
-    @keyframes flash {
-      0% {
-        opacity: 0;
-      }
+    const next =
+      Math.floor(Math.random() * 9000) + 3000;
 
-      100% {
-        opacity: 1;
-      }
-    }
+    setTimeout(randomEvent, next);
+  }
 
-    @keyframes shake {
-      0% {
-        transform: translateX(0);
-      }
+  setTimeout(randomEvent, 3000);
 
-      25% {
-        transform: translateX(-5px);
-      }
+  setInterval(() => {
+    document.title =
+      "🫵😂 still waiting?";
 
-      50% {
-        transform: translateX(5px);
-      }
+    setTimeout(() => {
+      document.title =
+        "the waiting game";
+    }, 1200);
+  }, 7000);
 
-      75% {
-        transform: translateX(-5px);
-      }
-
-      100% {
-        transform: translateX(0);
-      }
-    }
-
-    .tiny {
-      font-size: 0.3rem !important;
-    }
-
-    .huge {
-      font-size: 8rem !important;
-    }
-
-    .invisible {
-      opacity: 0 !important;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container">
-    <h1 id="title">the waiting game</h1>
-
-    <div class="subtitle" id="subtitle">
-      something happens eventually probably maybe
-    </div>
-
-    <div class="event" id="event">
-      Waiting...
-    </div>
-
-    <div class="timer" id="timer">
-      0 seconds wasted
-    </div>
-  </div>
-
-  <div class="footer" id="footer">
-    u cant quit now
-  </div>
-
-  <script>
-    const eventBox = document.getElementById("event");
-    const timerBox = document.getElementById("timer");
-    const title = document.getElementById("title");
-    const subtitle = document.getElementById("subtitle");
-    const footer = document.getElementById("footer");
-
-    let seconds = 0;
-
-    const events = [
-      "nothing happened",
-      "still nothing",
-      "almost something",
-      "wait longer",
-      "you looked away didnt you",
-      "the game is loading",
-      "you are wasting your life",
-      "great job waiting",
-      "that was fake",
-      "maybe next time",
-      "the reward was removed",
-      "connection to happiness lost",
-      "you thought something would happen",
-      "pathetic levels of patience detected",
-      "error: entertainment not found",
-      "this game gets good after 14 hours",
-      "you blinked and missed nothing",
-      "please continue waiting",
-      "the button unlocks in 9 years",
-      "you are now professionally unemployed",
-      "loading fun...",
-      "fun failed to load",
-      "wow absolutely nothing",
-      "you cant leave now",
-      "something is behind you",
-      "just kidding",
-      "you waited for THAT?",
-      "your patience stat increased by 0",
-      "the game was rigged from the start",
-      "you expected gameplay?"
-    ];
-
-    const fakeRewards = [
-      "UNLOCKING SECRET...",
-      "RARE EVENT FOUND",
-      "FREE REWARD DETECTED",
-      "FINAL EVENT STARTING",
-      "YOU WON",
-      "OPENING PORTAL",
-      "GENERATING CONTENT"
-    ];
-
-    setInterval(() => {
-      seconds++;
-
-      timerBox.textContent = `${seconds} seconds wasted`;
-
-      if (seconds === 30) {
-        eventBox.textContent = "30 seconds gone forever";
-      }
-
-      if (seconds === 60) {
-        document.body.classList.add("shake");
-
-        setTimeout(() => {
-          document.body.classList.remove("shake");
-        }, 300);
-
-        title.classList.add("tiny");
-
-        eventBox.textContent =
-          "the title shrunk because you waited too long";
-      }
-
-      if (seconds === 90) {
-        subtitle.classList.add("invisible");
-
-        eventBox.textContent =
-          "subtitle privileges revoked";
-      }
-
-      if (seconds === 120) {
-        title.classList.remove("tiny");
-        title.classList.add("huge");
-
-        eventBox.textContent =
-          "THE WAITING NEVER ENDS";
-      }
-    }, 1000);
-
-    function randomEvent() {
-      const fakeChance = Math.random();
-
-      eventBox.classList.remove("flash");
+  setInterval(() => {
+    if (Math.random() < 0.2) {
+      document.body.classList.add("shake");
 
       setTimeout(() => {
-        if (fakeChance < 0.25) {
-          const fake =
-            fakeRewards[
-              Math.floor(Math.random() * fakeRewards.length)
-            ];
-
-          eventBox.textContent = fake;
-
-          setTimeout(() => {
-            eventBox.textContent =
-              "lol nope";
-          }, 2000);
-        } else {
-          const text =
-            events[
-              Math.floor(Math.random() * events.length)
-            ];
-
-          eventBox.textContent = text;
-        }
-
-        eventBox.classList.add("flash");
-      }, 50);
-
-      const next =
-        Math.floor(Math.random() * 12000) + 4000;
-
-      setTimeout(randomEvent, next);
+        document.body.classList.remove("shake");
+      }, 200);
     }
+  }, 5000);
 
-    setTimeout(randomEvent, 3000);
-
-    setInterval(() => {
-      if (Math.random() < 0.1) {
-        document.title =
-          "something happened!!";
-
-        setTimeout(() => {
-          document.title =
-            "the waiting game";
-        }, 1000);
-      }
-    }, 5000);
-
-    window.addEventListener("beforeunload", (e) => {
-      e.preventDefault();
-      e.returnValue =
-        "leaving already?";
-    });
-  </script>
-</body>
-</html>
+  window.addEventListener("beforeunload", (e) => {
+    e.preventDefault();
+    e.returnValue =
+      "🫵😂 quitting already?";
+  });
+</script>
+```
