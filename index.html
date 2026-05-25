@@ -1,0 +1,157 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> the waiting game </title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Consolas, monospace;
+    }
+
+    body {
+      background: #0a0a0a;
+      color: #f5f5f5;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 5rem;
+      letter-spacing: 8px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.5;
+      margin-bottom: 60px;
+      letter-spacing: 3px;
+    }
+
+    .event {
+      font-size: 2rem;
+      min-height: 80px;
+      margin-bottom: 40px;
+      transition: opacity 0.5s;
+    }
+
+    .timer {
+      font-size: 1.2rem;
+      opacity: 0.7;
+      margin-bottom: 20px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.8rem;
+      opacity: 0.3;
+      letter-spacing: 2px;
+    }
+
+    .flash {
+      animation: flash 0.3s ease;
+    }
+
+    @keyframes flash {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>the waiting game</h1>
+
+    <div class="subtitle">
+    smth happends whenever \
+    </div>
+
+    <div class="event" id="event">
+      Waiting...
+    </div>
+
+    <div class="timer" id="timer">
+      0 seconds survived
+    </div>
+  </div>
+
+  <div class="footer">
+   u hav 2 be patient
+  </div>
+
+  <script>
+    const eventBox = document.getElementById("event");
+    const timerBox = document.getElementById("timer");
+
+    let seconds = 0;
+
+    const events = [
+      "Still waiting...",
+      "You hear distant static.",
+      "Nothing changed.",
+      "A cold breeze passes.",
+      "You feel watched.",
+      "The lights flicker.",
+      "Time moves slower.",
+      "Something almost happened.",
+      "The silence grows louder.",
+      "A sound echoes nearby.",
+      "The waiting continues.",
+      "You blink.",
+      "You regret staying.",
+      "You continue anyway.",
+      "The room feels different.",
+      "You are patient.",
+      "You are becoming the wait."
+    ];
+
+    setInterval(() => {
+      seconds++;
+      timerBox.textContent = `${seconds} seconds survived`;
+    }, 1000);
+
+    function randomEvent() {
+      const text = events[Math.floor(Math.random() * events.length)];
+
+      eventBox.classList.remove("flash");
+
+      setTimeout(() => {
+        eventBox.textContent = text;
+        eventBox.classList.add("flash");
+      }, 50);
+
+      const next =
+        Math.floor(Math.random() * 7000) + 3000;
+
+      setTimeout(randomEvent, next);
+    }
+
+    setTimeout(randomEvent, 4000);
+  </script>
+</body>
+</html>
+```
