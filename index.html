@@ -1,10 +1,15 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> the waiting game </title>
+
+  <title>the waiting game</title>
+
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⌛</text></svg>"
+  />
 
   <style>
     * {
@@ -15,79 +20,123 @@
     }
 
     body {
-      background: #0a0a0a;
+      background: #050505;
       color: #f5f5f5;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      transition: background 0.5s;
     }
 
     .container {
       width: 90%;
-      max-width: 900px;
+      max-width: 1000px;
       text-align: center;
+      padding: 40px;
     }
 
     h1 {
-      font-size: 5rem;
-      letter-spacing: 8px;
+      font-size: 6rem;
+      letter-spacing: 10px;
+      text-transform: lowercase;
       margin-bottom: 10px;
-      text-transform: uppercase;
     }
 
     .subtitle {
-      font-size: 1rem;
-      opacity: 0.5;
+      opacity: 0.4;
+      letter-spacing: 4px;
       margin-bottom: 60px;
-      letter-spacing: 3px;
+      font-size: 0.9rem;
     }
 
     .event {
-      font-size: 2rem;
-      min-height: 80px;
-      margin-bottom: 40px;
-      transition: opacity 0.5s;
+      font-size: 2.2rem;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+      padding: 20px;
     }
 
     .timer {
-      font-size: 1.2rem;
-      opacity: 0.7;
-      margin-bottom: 20px;
+      margin-top: 30px;
+      opacity: 0.5;
+      font-size: 1rem;
     }
 
     .footer {
       position: absolute;
-      bottom: 30px;
+      bottom: 20px;
       width: 100%;
       text-align: center;
+      opacity: 0.2;
       font-size: 0.8rem;
-      opacity: 0.3;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
     }
 
     .flash {
-      animation: flash 0.3s ease;
+      animation: flash 0.2s ease;
+    }
+
+    .shake {
+      animation: shake 0.2s linear;
     }
 
     @keyframes flash {
       0% {
         opacity: 0;
       }
+
       100% {
         opacity: 1;
       }
+    }
+
+    @keyframes shake {
+      0% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-5px);
+      }
+
+      50% {
+        transform: translateX(5px);
+      }
+
+      75% {
+        transform: translateX(-5px);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .tiny {
+      font-size: 0.3rem !important;
+    }
+
+    .huge {
+      font-size: 8rem !important;
+    }
+
+    .invisible {
+      opacity: 0 !important;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>the waiting game</h1>
+    <h1 id="title">the waiting game</h1>
 
-    <div class="subtitle">
-    smth happends whenever \
+    <div class="subtitle" id="subtitle">
+      something happens eventually probably maybe
     </div>
 
     <div class="event" id="event">
@@ -95,63 +144,159 @@
     </div>
 
     <div class="timer" id="timer">
-      0 seconds survived
+      0 seconds wasted
     </div>
   </div>
 
-  <div class="footer">
-   u hav 2 be patient
+  <div class="footer" id="footer">
+    u cant quit now
   </div>
 
   <script>
     const eventBox = document.getElementById("event");
     const timerBox = document.getElementById("timer");
+    const title = document.getElementById("title");
+    const subtitle = document.getElementById("subtitle");
+    const footer = document.getElementById("footer");
 
     let seconds = 0;
 
     const events = [
-      "Still waiting...",
-      "You hear distant static.",
-      "Nothing changed.",
-      "A cold breeze passes.",
-      "You feel watched.",
-      "The lights flicker.",
-      "Time moves slower.",
-      "Something almost happened.",
-      "The silence grows louder.",
-      "A sound echoes nearby.",
-      "The waiting continues.",
-      "You blink.",
-      "You regret staying.",
-      "You continue anyway.",
-      "The room feels different.",
-      "You are patient.",
-      "You are becoming the wait."
+      "nothing happened",
+      "still nothing",
+      "almost something",
+      "wait longer",
+      "you looked away didnt you",
+      "the game is loading",
+      "you are wasting your life",
+      "great job waiting",
+      "that was fake",
+      "maybe next time",
+      "the reward was removed",
+      "connection to happiness lost",
+      "you thought something would happen",
+      "pathetic levels of patience detected",
+      "error: entertainment not found",
+      "this game gets good after 14 hours",
+      "you blinked and missed nothing",
+      "please continue waiting",
+      "the button unlocks in 9 years",
+      "you are now professionally unemployed",
+      "loading fun...",
+      "fun failed to load",
+      "wow absolutely nothing",
+      "you cant leave now",
+      "something is behind you",
+      "just kidding",
+      "you waited for THAT?",
+      "your patience stat increased by 0",
+      "the game was rigged from the start",
+      "you expected gameplay?"
+    ];
+
+    const fakeRewards = [
+      "UNLOCKING SECRET...",
+      "RARE EVENT FOUND",
+      "FREE REWARD DETECTED",
+      "FINAL EVENT STARTING",
+      "YOU WON",
+      "OPENING PORTAL",
+      "GENERATING CONTENT"
     ];
 
     setInterval(() => {
       seconds++;
-      timerBox.textContent = `${seconds} seconds survived`;
+
+      timerBox.textContent = `${seconds} seconds wasted`;
+
+      if (seconds === 30) {
+        eventBox.textContent = "30 seconds gone forever";
+      }
+
+      if (seconds === 60) {
+        document.body.classList.add("shake");
+
+        setTimeout(() => {
+          document.body.classList.remove("shake");
+        }, 300);
+
+        title.classList.add("tiny");
+
+        eventBox.textContent =
+          "the title shrunk because you waited too long";
+      }
+
+      if (seconds === 90) {
+        subtitle.classList.add("invisible");
+
+        eventBox.textContent =
+          "subtitle privileges revoked";
+      }
+
+      if (seconds === 120) {
+        title.classList.remove("tiny");
+        title.classList.add("huge");
+
+        eventBox.textContent =
+          "THE WAITING NEVER ENDS";
+      }
     }, 1000);
 
     function randomEvent() {
-      const text = events[Math.floor(Math.random() * events.length)];
+      const fakeChance = Math.random();
 
       eventBox.classList.remove("flash");
 
       setTimeout(() => {
-        eventBox.textContent = text;
+        if (fakeChance < 0.25) {
+          const fake =
+            fakeRewards[
+              Math.floor(Math.random() * fakeRewards.length)
+            ];
+
+          eventBox.textContent = fake;
+
+          setTimeout(() => {
+            eventBox.textContent =
+              "lol nope";
+          }, 2000);
+        } else {
+          const text =
+            events[
+              Math.floor(Math.random() * events.length)
+            ];
+
+          eventBox.textContent = text;
+        }
+
         eventBox.classList.add("flash");
       }, 50);
 
       const next =
-        Math.floor(Math.random() * 7000) + 3000;
+        Math.floor(Math.random() * 12000) + 4000;
 
       setTimeout(randomEvent, next);
     }
 
-    setTimeout(randomEvent, 4000);
+    setTimeout(randomEvent, 3000);
+
+    setInterval(() => {
+      if (Math.random() < 0.1) {
+        document.title =
+          "something happened!!";
+
+        setTimeout(() => {
+          document.title =
+            "the waiting game";
+        }, 1000);
+      }
+    }, 5000);
+
+    window.addEventListener("beforeunload", (e) => {
+      e.preventDefault();
+      e.returnValue =
+        "leaving already?";
+    });
   </script>
 </body>
 </html>
-```
